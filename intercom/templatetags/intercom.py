@@ -45,11 +45,12 @@ def intercom_tag(context):
     if INTERCOM_APPID and request.user and request.user.is_authenticated():
         email = request.user.email
         user_created = request.user.date_joined
-        name = request.user.username
+        name = request.user.get_full_name()
+        username = request.user.username
         user_hash = None
         use_counter = 'true' if INTERCOM_ENABLE_INBOX_COUNTER else 'false'
 
-        custom_data = {}
+        custom_data = {'username':username}
         if INTERCOM_CUSTOM_DATA_CLASSES:
             for custom_data_class in INTERCOM_CUSTOM_DATA_CLASSES:
                 try:
